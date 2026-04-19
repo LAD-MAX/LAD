@@ -11,7 +11,9 @@ public class BulletDrawer {
     }
 
     public static void drawHitEffect(Graphics g, HitEffect e) {
-        g.setColor(new Color(255, 255, 255, e.getTimer() * 30));
+        // 限制 alpha 值不超过 255
+        int alpha = Math.min(255, e.getTimer() * 30);
+        g.setColor(new Color(255, 255, 255, alpha));
         g.fillOval(e.getX() - 8, e.getY() - 8, 16, 16);
     }
 }

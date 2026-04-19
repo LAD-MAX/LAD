@@ -20,6 +20,7 @@ import com.example.tank.entity.HitEffect;
 import com.example.tank.draw.WallDrawer;
 import com.example.tank.draw.TankDrawer;
 import com.example.tank.draw.BulletDrawer;
+import com.example.tank.util.AudioManager;
 
 public class GamePanel extends JPanel implements KeyListener, Runnable {
 
@@ -270,7 +271,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                             it.remove();
                         }
                         effects.add(new HitEffect(b.getX(), b.getY()));
-                        playSound("hit.wav");
+                        AudioManager.playSound(getClass(), "hit.wav");         // ← 加上 /resources/
                         delBullet.add(b);
                         hit = true;
                         break;
@@ -282,6 +283,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
             if (!b.getOwner().isPlayer() && hit(b.getX(), b.getY(), b.getSize(), b.getSize(), player.getX(), player.getY(), 40, 40)) {
                 delBullet.add(b);
+                effects.add(new HitEffect(player.getX() + 20, player.getY() + 20));  // ← 添加爆炸效果
+                AudioManager.playSound(getClass(), "boom.wav");    // ← 添加玩家爆炸音效
                 gameOver = true;
                 return;
             }
@@ -292,7 +295,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                         effects.add(new HitEffect(b.getX(), b.getY()));
                         delBullet.add(b);
                         delTank.add(t);
-                        playSound("boom.wav");
+                        AudioManager.playSound(getClass(), "hit.wav");
+                        AudioManager.playSound(getClass(), "boom.wav");
                         score += 50;
                         break;
                     }
@@ -332,7 +336,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         int cx = tank.getX() + 20;
         int cy = tank.getY() + 20;
         bullets.add(new Bullet(cx-5, cy-5, tank.getDir(), tank));
-        playSound("fire.wav");
+        AudioManager.playSound(getClass(), "fire.wav");
     }
 
     @Override
