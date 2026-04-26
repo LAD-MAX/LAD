@@ -1,8 +1,8 @@
 package com.example.tank.entity;
 
 public class HitEffect {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private int timer = 10;
 
     public HitEffect(int x, int y) {

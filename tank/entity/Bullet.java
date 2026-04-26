@@ -4,10 +4,8 @@ import com.example.tank.util.Dir;
 
 public class Bullet {
     private int x, y;
-    private Dir dir;
-    private int speed = 6;
-    private int size = 10; // 子弹的大小，用于绘制
-    private Tank owner;
+    private final Dir dir;
+    private final Tank owner;
 
     public Bullet(int x, int y, Dir dir, Tank owner) {
         this.x = x;
@@ -20,8 +18,10 @@ public class Bullet {
     public int getX() { return x; }
     public int getY() { return y; }
     public Dir getDir() { return dir; }
-    public int getSpeed() { return speed; }
-    public int getSize() { return size; } // 新增的getSize()
+    public int getSpeed() {
+        return 6; }
+    public int getSize() { // 子弹的大小，用于绘制
+        return 10; } // 新增的getSize()
     public Tank getOwner() { return owner; }
 
     // 补全setter方法

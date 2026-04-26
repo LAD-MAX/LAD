@@ -3,7 +3,6 @@ package com.example.tank.draw;
 import java.awt.*;
 
 import com.example.tank.entity.Tank;
-import com.example.tank.util.Dir;
 
 public class TankDrawer {
     public static void draw(Graphics g, Tank t) {

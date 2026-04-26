@@ -3,13 +3,12 @@ package com.example.tank.util;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
 
 public class ImageLoader {
 
     // 图片对象
-    public static BufferedImage bg;
+    public static final BufferedImage bg;
 
     // 静态初始化块，加载所有图片
     static {

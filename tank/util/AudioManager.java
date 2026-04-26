@@ -1,21 +1,23 @@
-// 文件路径: src/com/example/tank/util/AudioManager.java
 package com.example.tank.util;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.net.URL;
+import com.example.tank.main.StartUI;
 
 public class AudioManager {
     private static Clip bgmClip;
 
     // 播放 BGM
     public static void playBGM(Class<?> clazz) {
+        if (!StartUI.isSoundEnabled()) {
+            System.out.println("音效已关闭，BGM 不播放");
+            return;
+        }
         stopBGM();
         try {
-            // 尝试从 classpath 加载
             URL url = clazz.getResource("/bgm.wav");
             if (url == null) {
-                // 备用：直接从文件系统加载
                 File file = new File("resources/bgm.wav");
                 if (file.exists()) {
                     url = file.toURI().toURL();
@@ -51,12 +53,13 @@ public class AudioManager {
 
     // 播放音效
     public static void playSound(Class<?> clazz, String fileName) {
+        if (!StartUI.isSoundEnabled()) {
+            return;
+        }
         new Thread(() -> {
             try {
-                // 尝试从 classpath 加载
                 URL url = clazz.getResource("/" + fileName);
                 if (url == null) {
-                    // 备用：直接从文件系统加载
                     File file = new File("resources/" + fileName);
                     if (file.exists()) {
                         url = file.toURI().toURL();
