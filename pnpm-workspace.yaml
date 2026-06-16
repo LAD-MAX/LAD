@@ -1,0 +1,12 @@
+packages:
+  - "client"
+  - "server"
+  - "shared"
+  - "admin"
+allowBuilds:
+  '@parcel/watcher': set this to true or false
+  '@prisma/client': false
+  '@prisma/engines': false
+  esbuild: false
+  prisma: false
+  puppeteer: true

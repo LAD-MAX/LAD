@@ -1,0 +1,47 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: rxhx-server
+    restart: always
+    environment:
+      DATABASE_URL: mysql://root:你的本机MySQL密码@host.docker.internal:3306/rxhx_zone?charset=utf8mb4
+      PORT: 3000
+      JWT_SECRET: rxhx_super_secret_key_2025
+    ports:
+      - "3000:3000"
+    networks:
+      - rxhx-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: rxhx-client
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "5173:80"
+    networks:
+      - rxhx-network
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: rxhx-admin
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "5174:80"
+    networks:
+      - rxhx-network
+
+networks:
+  rxhx-network:
+    driver: bridge
